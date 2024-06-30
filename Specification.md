@@ -2,11 +2,7 @@ This API should let you:
 
 Sign up as a new user.
 Generate and validate JWT tokens for handling authentication and user session.
-List and filter your past expenses. You can add the following filters:
-Past week.
-Last month.
-Last 3 months.
-Custom (to specify a start and end date of your choosing).
+List and filter your past expenses
 Add new expenses.
 Remove existing expenses.
 Update existing expenses.
