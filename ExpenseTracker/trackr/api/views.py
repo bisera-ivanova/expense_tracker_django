@@ -1,11 +1,14 @@
 from .serializers import ExpenseSerializer
+from rest_framework.generics import CreateAPIView
 from trackr.models import Expense
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 
 
 class ExpenseList(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get(self, request, *args, **kwargs):
         start_date = request.GET.get('start_date')
@@ -27,6 +30,8 @@ class ExpenseList(APIView):
 
 
 class ExpenseDetail(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
     def get(self, request, pk):
         expense = Expense.objects.get(pk=pk)
         serializer = ExpenseSerializer(expense)
@@ -46,10 +51,13 @@ class ExpenseDetail(APIView):
         return Response(status=204)
 
 
-class ExpenseCreate(APIView):
-    def post(self, request):
-        serializer = ExpenseSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+class ExpenseCreate(CreateAPIView):
+    # would not be able to create a new expense unless logged in
+    permission_classes = [IsAuthenticated]
+    serializer_class = ExpenseSerializer
+    queryset = Expense.objects.all()
+    serializer = ExpenseSerializer(queryset, many=True)
+
+    def perform_create(self, serializer):
+        serializer.save(expense_creator=self.request.user)
+
