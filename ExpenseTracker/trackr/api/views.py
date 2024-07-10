@@ -1,14 +1,15 @@
 from .serializers import ExpenseSerializer
 from rest_framework.generics import CreateAPIView
 from trackr.models import Expense
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from .permissions import AdminOrReadOnly, ReviewUserOrReadOnly
 
 
 class ExpenseList(APIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (AdminOrReadOnly,)
 
     def get(self, request, *args, **kwargs):
         start_date = request.GET.get('start_date')
@@ -30,7 +31,7 @@ class ExpenseList(APIView):
 
 
 class ExpenseDetail(APIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (ReviewUserOrReadOnly,)
 
     def get(self, request, pk):
         expense = Expense.objects.get(pk=pk)
