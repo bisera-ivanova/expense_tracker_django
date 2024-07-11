@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'trackr',
     'django_filters',
     'rest_framework',
+    'user_app',
     'rest_framework.authtoken',
 ]
 
