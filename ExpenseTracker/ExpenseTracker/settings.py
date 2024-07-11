@@ -59,8 +59,12 @@ ROOT_URLCONF = 'ExpenseTracker.urls'
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
+}
+
+SIMPLE_JWT = {
+    "ROTATE_REFRESH_TOKENS": True,
 }
 
 TEMPLATES = [
