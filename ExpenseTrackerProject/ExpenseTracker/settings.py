@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'trackr',
     'django_filters',
@@ -97,6 +98,9 @@ DATABASES = {
         "PASSWORD": os.getenv("DATABASE_PASSWORD"),
         "HOST": "127.0.0.1",
         "PORT": "5432",
+        'TEST': {
+            'NAME': 'TestDB',
+        },
     }
 }
 
