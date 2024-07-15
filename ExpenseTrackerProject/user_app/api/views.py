@@ -6,13 +6,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 
 @api_view(["POST"])
-def logout_view(request):
-    if request.method == "POST":
-        request.user.auth_token.delete()
-        return Response({"detail": "User logged out."})
-
-
-@api_view(["POST"])
 def registration_view(request):
     if request.method == "POST":
         serializer = RegistrationSerializer(data=request.data)
