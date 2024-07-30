@@ -32,4 +32,3 @@ class RegisterTestCase(APITestCase):
         data = {"username": "example7", "password": "examplepassword", "refresh": str(refresh)}
         response = self.client.post(reverse('token_refresh'), data=data)
         assert response.status_code == status.HTTP_200_OK
-
