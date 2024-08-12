@@ -1,7 +1,7 @@
-from .views import ExpenseList, ExpenseDetail, ExpenseCreate
-
 from django.contrib import admin
 from django.urls import path
+
+from .views import ExpenseList, ExpenseDetail, ExpenseCreate
 
 urlpatterns = [
     path('admin/', admin.site.urls),

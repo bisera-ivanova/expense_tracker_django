@@ -1,7 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import RegistrationSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from .serializers import RegistrationSerializer
 
 
 @api_view(["POST"])
