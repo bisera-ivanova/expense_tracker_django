@@ -1,9 +1,9 @@
 
 from django.contrib.auth.models import User
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.test import APITestCase
-from rest_framework import status
 from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class RegisterTestCase(APITestCase):
@@ -32,4 +32,3 @@ class RegisterTestCase(APITestCase):
         data = {"username": "example7", "password": "examplepassword", "refresh": str(refresh)}
         response = self.client.post(reverse('token_refresh'), data=data)
         assert response.status_code == status.HTTP_200_OK
-

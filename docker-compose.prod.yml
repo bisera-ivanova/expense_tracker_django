@@ -1,0 +1,34 @@
+services:
+  web:
+    build: ./ExpenseTrackerProject
+    command: sh -c "gunicorn ExpenseTracker.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+    expose:
+      - 8000
+    entrypoint: ./entrypoint.sh
+    env_file:
+      - .envs/prod/.django
+      - .envs/prod/.postgres
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .envs/prod/.postgres
+    ports:
+      - "5432:5432"
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/ExpenseTrackerProject/web/staticfiles
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  static_volume:
