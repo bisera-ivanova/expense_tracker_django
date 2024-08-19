@@ -1,6 +1,7 @@
 services:
   web:
     build: ./ExpenseTrackerProject
+    image: biseraivanova/django-expense-tracker
     links:
       - postgres:postgres
     command: python manage.py runserver 0.0.0.0:8000
@@ -13,7 +14,7 @@ services:
       - .envs/.postgres
 
   postgres:
-    restart: always
+    restart: on-failure
     image: postgres:latest
     volumes:
       - pg_data:/var/lib/postgresql/data/
